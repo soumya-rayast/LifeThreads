@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
-
+import { FaFacebook } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { FaInstagramSquare } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
+import { FaShareNodes } from "react-icons/fa6";
+import { useNavigate } from 'react-router-dom';
 const PostDetail = () => {
+  const navigate = useNavigate()
   // State to handle new comment input and the list of comments
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState([
@@ -37,13 +43,13 @@ const PostDetail = () => {
   ];
 
   return (
-    <div className="flex flex-col mb-10 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
+    <div className="flex flex-col mb-2 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
       <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10">
         {/* Blog Title */}
         <h1 className="text-3xl font-semibold text-blue-500 mb-4">Blog Title</h1>
         {/* Author and Post Date */}
         <div className="flex items-center justify-between text-gray-600 mb-4">
-          <div>
+          <div onClick={()=>navigate("/author")} className='cursor-pointer'>
             <span className="font-semibold text-blue-500">Author:</span> John Doe
           </div>
           <div>
@@ -78,16 +84,16 @@ const PostDetail = () => {
         </div>
 
         {/* Share Count */}
-        <div className="mb-6 text-gray-600">
-          <span className="font-semibold text-blue-500">Shares:</span> 120
-        </div>
+        <button className="mb-6 text-gray-600 flex flex-row items-center gap-2 border border-blue-600 px-2 py-1 rounded-full">
+          <span className="font-semibold text-blue-500 "><FaShareNodes /></span> 120
+        </button>
 
         {/* Social Media Share Buttons */}
         <div className="flex gap-4 justify-center mb-6 flex-wrap">
-          <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition w-full sm:w-auto">Share on Facebook</button>
-          <button className="bg-blue-400 text-white px-4 py-2 rounded hover:bg-blue-500 transition w-full sm:w-auto">Share on Twitter</button>
-          <button className="bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600 transition w-full sm:w-auto">Share on Instagram</button>
-          <button className="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 transition w-full sm:w-auto">Share on LinkedIn</button>
+          <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition w-full sm:w-auto"><FaFacebook /></button>
+          <button className="bg-blue-400 text-white px-4 py-2 rounded hover:bg-blue-500 transition w-full sm:w-auto"><FaXTwitter /></button>
+          <button className="bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600 transition w-full sm:w-auto"><FaInstagramSquare /></button>
+          <button className="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 transition w-full sm:w-auto"><FaLinkedin /></button>
         </div>
 
         {/* Comment Section */}
@@ -137,13 +143,13 @@ const PostDetail = () => {
       </div>
 
       {/* Related Blogs Section */}
-      <div className="mt-10 w-full mb-10">
+      <div className="mt-10 w-full ">
         <h3 className="text-2xl font-semibold text-blue-500 mb-4">Related Blogs</h3>
-        <hr className="mb-4" />
+        <hr className="border-gray-300 my-4" />
 
         <div className="flex overflow-x-auto gap-6 justify-start items-start sm:px-6 md:px-10 lg:px-14 xl:px-20 cursor-pointer">
           {relatedBlogs.map((blog, index) => (
-            <div key={index} className="w-60 bg-white p-4 rounded-lg shadow-lg flex-shrink-0">
+            <div key={index} className="w-60 bg-white p-4 rounded-xl border  shadow-xl flex-shrink-0">
               <img
                 src={blog.image}
                 alt={blog.title}
@@ -159,6 +165,7 @@ const PostDetail = () => {
             </div>
           ))}
         </div>
+        <hr className="border-gray-300 my-4" />
       </div>
 
     </div>

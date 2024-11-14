@@ -29,11 +29,11 @@ const Navbar = () => {
                 Life<span className="text-blue-500">Threads</span>
             </Link>
 
-            {/* Search bar & Light/Dark button - Desktop & Tablet */}
+            {/* Search bar   */}
             <div className="hidden md:flex gap-4">
                 <input
                     type="text"
-                    className="border rounded px-2 py-1"
+                    className="border rounded-full px-2 py-1 "
                     placeholder="Search..."
                 />
             </div>
@@ -45,7 +45,9 @@ const Navbar = () => {
                     <li><Link to="/blogs" className="hover:text-blue-500">Blog</Link></li>
                     <li><Link to="/categories" className="hover:text-blue-500">Categories</Link></li>
                     <li><Link to="/profile" className="hover:text-blue-500">Profile</Link></li>
+                    <li><Link to="/createPost" className="hover:text-blue-500">Create</Link></li>
                 </ul>
+                {/* Light/Dark button - Desktop & Tablet */}
                 <button
                     className="px-3 py-1 border rounded hover:bg-gray-200"
                     onClick={() => alert('Toggle Light/Dark Mode')}
@@ -65,12 +67,13 @@ const Navbar = () => {
 
             {/* Mobile Menu */}
             {isMenuOpen && (
-                <div className="absolute top-10 left-0 w-full bg-white shadow-md md:hidden transition-transform transform duration-300">
+                <div className="absolute top-10 left-0 w-full bg-white shadow-md md:hidden transition-transform transform duration-300 ">
                     <ul className="flex flex-col items-center gap-4 p-4">
                         <li><Link to="/" className="hover:text-blue-500">Home</Link></li>
                         <li><Link to="/blogs" className="hover:text-blue-500">Blog</Link></li>
                         <li><Link to="/categories" className="hover:text-blue-500">Categories</Link></li>
                         <li><Link to="/profile" className="hover:text-blue-500">Profile</Link></li>
+                        <li><Link to="/createPost" className="hover:text-blue-500">Create</Link></li>
                         <li>
                             <button
                                 className="px-3 py-1 border rounded hover:bg-gray-200"

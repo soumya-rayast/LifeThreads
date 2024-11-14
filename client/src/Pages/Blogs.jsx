@@ -4,7 +4,7 @@ import { FaSearch } from "react-icons/fa";
 
 const Blogs = () => {
     return (
-        <div className='mt-20 mx-10 flex flex-col'>
+        <div className='mt-20 mb-5 mx-10 flex flex-col'>
             {/* Search Functionality */}
             <div className='flex  flex-col items-center gap-4 mb-10'>
                 <div className='relative  w-full md:w-1/2'>
@@ -36,6 +36,7 @@ const Blogs = () => {
                 <PostCard />
                 <PostCard />
             </div>
+            <hr className="border-gray-300 my-4" />
         </div>
     );
 }

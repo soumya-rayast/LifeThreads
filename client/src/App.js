@@ -12,6 +12,9 @@ import Blogs from './Pages/Blogs';
 import Categories from './Pages/Categories';
 import SignIn from './auth/SignIn';
 import SignUp from './auth/SignUp';
+import UpdateProfile from './Pages/UpdateProfile';
+import AuthorBlogs from './Pages/AuthorBlogs';
+import Author from './Pages/Author';
 
 function App() {
   return (
@@ -23,12 +26,15 @@ function App() {
           <Route path='/login' element={<SignIn />} />
           <Route path='/signup' element={<SignUp />} />
           <Route path='/blogs' element={<Blogs />} />
-          <Route path='/categories' element={<Categories/>}/>
+          <Route path='/categories' element={<Categories />} />
           <Route path='/profile' element={<Profile />} />
-          <Route path='/postDetail' element={<PostDetail/>} />
+          <Route path='/postDetail' element={<PostDetail />} />
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/createpost' element={<CreatePost />} />
           <Route path='/editpost' element={<EditPost />} />
+          <Route path='/updateProfile' element={<UpdateProfile />} />
+          <Route path='/authorblogs' element={<AuthorBlogs />} />
+          <Route path='/author' element={<Author />} />
         </Routes>
         <Footer />
       </Router>

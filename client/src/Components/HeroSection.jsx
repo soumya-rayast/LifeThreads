@@ -3,7 +3,7 @@ import hero from "../assets/hero.jpg";
 
 const HeroSection = () => {
     return (
-        <div className='relative w-full h-[50vh] md:h-[40vh] flex items-center justify-center rounded-3xl mt-7 '>
+        <div className='relative w-full h-[50vh] md:h-[40vh] md:flex hidden items-center justify-center rounded-3xl mt-7 '>
             {/* Hero Image */}
             <img 
                 src={hero} 
@@ -22,7 +22,7 @@ const HeroSection = () => {
                 <p className='text-sm md:text-lg mb-6'>
                     Discover stories, insights, and ideas from a diverse community of writers.
                 </p>
-                <button className='px-6 py-2 bg-blue-500 hover:bg-blue-600 rounded-md'>
+                <button className='px-6 py-2 bg-blue-500 text-white hover:bg-blue-600 rounded-md'>
                     Explore Now
                 </button>
             </div>

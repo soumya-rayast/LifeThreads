@@ -1,7 +1,9 @@
 import React from 'react';
 import hero from "../assets/hero.jpg";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { IoArrowForwardCircle } from "react-icons/io5";
 const PostCard = () => {
+    const navigate = useNavigate()
     return (
         <div className='cursor-pointer bg-white rounded-lg shadow-md overflow-hidden w-full md:w-[300px]'>
             {/* Post Image */}
@@ -33,8 +35,12 @@ const PostCard = () => {
 
                 {/* Read More Button */}
                 <button
-                    className='w-full py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 transition duration-300'>
-                    <a href="/postDetail">Read More</a>
+                    className='w-full py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 transition duration-300'
+                    onClick={() => navigate("/postDetail")}>
+                    <Link className='flex justify-center items-center gap-2'>
+                        Read More
+                        <IoArrowForwardCircle size={24} />
+                    </Link>
                 </button>
             </div>
         </div>

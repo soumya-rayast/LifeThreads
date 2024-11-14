@@ -2,8 +2,10 @@ import React from 'react';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { MdEditSquare } from "react-icons/md";
 import PostCard from '../Components/PostCard';
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col items-center justify-center bg-gray-100 py-10 px-4">
       <div className="max-w-5xl w-full bg-white rounded-lg shadow-lg mt-10 mb-10 p-8">
@@ -22,7 +24,7 @@ const Profile = () => {
               <p className="text-gray-600">+91 1234567890</p>
             </div>
           </div>
-          <button className="text-blue-500 md:flex hidden items-center">
+          <button className="text-blue-500 md:flex hidden items-center" onClick={() => navigate('/updateProfile')} >
             <MdEditSquare size={24} />
           </button>
         </div>
@@ -50,6 +52,10 @@ const Profile = () => {
           <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:text-blue-800">
             <FaLinkedin size={24} />
           </a>
+        </div>
+        <div className=' flex gap-2'>
+          <button className='bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded-md' onClick={() => navigate('/dashboard')}>Dashboard</button>
+          <button className='bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded-md' onClick={() => navigate('/authorblogs')}>Your Blogs</button>
         </div>
       </div>
 
