@@ -19,13 +19,13 @@ const Dashboard = () => {
       {
         label: 'Number of Blogs',
         data: [weeklyBlogs, monthlyBlogs, yearlyBlogs],
-        backgroundColor: ['#3b82f6', '#6366f1', '#8b5cf6'], // Colors for each bar
+        backgroundColor: ['#3b82f6', '#6366f1', '#8b5cf6'], 
         borderColor: ['#2563eb', '#4f46e5', '#7c3aed'],
         borderWidth: 1,
       },
       {
         label: 'Shared Blogs',
-        data: [5, 15, 45], // Replace these values with dynamic data as needed
+        data: [5, 15, 45], 
         backgroundColor: ['#f87171', '#fb923c', '#fbbf24'],
         borderColor: ['#ef4444', '#f97316', '#f59e0b'],
         borderWidth: 1,

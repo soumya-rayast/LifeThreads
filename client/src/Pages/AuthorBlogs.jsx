@@ -7,7 +7,6 @@ const AuthorBlogs = () => {
             <h1 className="text-2xl text-blue-500 font-semibold mb-4">Your Blogs</h1>
             <div className="space-y-4">
                 <PostCard />
-                {/* Add more <PostCard /> components as needed */}
             </div>
         </div>
     );

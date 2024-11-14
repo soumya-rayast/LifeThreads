@@ -24,7 +24,6 @@ const PostCard = () => {
                 {/* Author Section */}
                 <div className='flex items-center gap-3 mb-4'>
                     <div className='w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center'>
-                        {/* Replace with actual avatar */}
                         <span className='text-xs'>👤</span>
                     </div>
                     <div>

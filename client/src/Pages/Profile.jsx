@@ -62,7 +62,7 @@ const Profile = () => {
       {/* User Blog */}
       <div className="w-full px-3 sm:px-10 mb-10">
         <h1 className="text-left text-3xl font-semibold mb-5">User's Recent Blogs</h1>
-        <hr className="mb-5" />
+        <hr className="border-gray-300 my-4" />
         <div className="flex flex-wrap gap-4">
           <PostCard />
           <PostCard />
@@ -71,6 +71,7 @@ const Profile = () => {
           <PostCard />
           <PostCard />
         </div>
+        <hr className="border-gray-300 my-4" />
       </div>
     </div>
   );

@@ -30,8 +30,9 @@ const UpdateProfile = () => {
             <div className="max-w-lg w-full bg-white rounded-lg shadow-lg p-8">
                 <h2 className="text-2xl font-semibold text-blue-500 mb-4">Update Profile</h2>
 
-                <div className="flex justify-between items-center flex-wrap gap-4 mb-4">
-                    <div className="w-full">
+                {/* User Name  and Email */}
+                <div className="flex flex-row justify-between items-center flex-wrap gap-2 mb-4">
+                    <div className="">
                         <label className="block text-blue-500 pl-2">Name</label>
                         <input
                             type="text"
@@ -42,31 +43,30 @@ const UpdateProfile = () => {
                             className="w-full px-3 py-2 border rounded-lg"
                         />
                     </div>
-                    <div className="w-full">
-                        <label className="block text-blue-500 pl-2">Email</label>
+                    <div className="mb-4">
+                        <label className="block text-blue-500 pl-2">Phone Number</label>
                         <input
-                            type="email"
-                            value={email}
+                            type="tel"
+                            value={phone}
                             required
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="Enter your email"
+                            onChange={(e) => setPhone(e.target.value)}
+                            placeholder="Enter your phone number"
                             className="w-full px-3 py-2 border rounded-lg"
                         />
                     </div>
                 </div>
 
                 <div className="mb-4">
-                    <label className="block text-blue-500 pl-2">Phone Number</label>
+                    <label className="block text-blue-500 pl-2">Email</label>
                     <input
-                        type="tel"
-                        value={phone}
+                        type="email"
+                        value={email}
                         required
-                        onChange={(e) => setPhone(e.target.value)}
-                        placeholder="Enter your phone number"
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Enter your email"
                         className="w-full px-3 py-2 border rounded-lg"
                     />
                 </div>
-
                 <div className="mb-4">
                     <label className="block text-blue-500 pl-2">Profile Photo</label>
                     <input

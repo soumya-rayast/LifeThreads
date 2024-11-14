@@ -10,21 +10,19 @@ import EditPost from './Pages/EditPost';
 import PostDetail from './Pages/PostDetail';
 import Blogs from './Pages/Blogs';
 import Categories from './Pages/Categories';
-import SignIn from './auth/SignIn';
-import SignUp from './auth/SignUp';
 import UpdateProfile from './Pages/UpdateProfile';
 import AuthorBlogs from './Pages/AuthorBlogs';
 import Author from './Pages/Author';
+import AuthPage from './auth/AuthPage';
+import About from './Pages/About';
 
 function App() {
   return (
-    <div className="App">
+    <div className="bg-gray-100">
       <Router>
         <Navbar />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/login' element={<SignIn />} />
-          <Route path='/signup' element={<SignUp />} />
           <Route path='/blogs' element={<Blogs />} />
           <Route path='/categories' element={<Categories />} />
           <Route path='/profile' element={<Profile />} />
@@ -35,6 +33,8 @@ function App() {
           <Route path='/updateProfile' element={<UpdateProfile />} />
           <Route path='/authorblogs' element={<AuthorBlogs />} />
           <Route path='/author' element={<Author />} />
+          <Route path='/auth' element={<AuthPage />} />
+          <Route path='/about' element={<About />} />
         </Routes>
         <Footer />
       </Router>
