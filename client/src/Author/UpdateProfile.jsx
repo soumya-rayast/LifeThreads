@@ -78,7 +78,7 @@ const UpdateProfile = () => {
                 </div>
 
                 <div className="mb-4">
-                    <label className="block text-blue-500 pl-2">Description</label>
+                    <label className="block text-blue-500 pl-2">Bio</label>
                     <textarea
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
