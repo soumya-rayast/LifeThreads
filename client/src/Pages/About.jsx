@@ -4,12 +4,15 @@ import { FaSquareInstagram } from "react-icons/fa6";
 import { FaTwitter } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
 import { Link } from 'react-router-dom';
-
+import { Helmet } from 'react-helmet';
 const About = () => {
   return (
     <div className='bg-gray-100 py-10'>
+      <Helmet>
+        <title>LifeThreads - About</title>
+      </Helmet>
       <div className='container mx-auto px-4 bg-white py-4 rounded-md shadow-xl'>
-        
+
         {/* About Section */}
         <section className='text-center'>
           <h1 className='text-4xl font-bold mb-4 text-blue-500'>About LifeThreads</h1>

@@ -3,11 +3,15 @@ import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { MdEditSquare } from "react-icons/md";
 import PostCard from '../Components/PostCard';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 const Profile = () => {
   const navigate = useNavigate();
   return (
     <div className="flex flex-col items-center justify-center bg-gray-100 py-10 px-4">
+      <Helmet>
+        <title>LifeThreads - Author Profile</title>
+      </Helmet>
       <div className="max-w-5xl w-full bg-white rounded-lg shadow-lg mt-10 mb-10 p-8">
 
         {/* Profile Photo and Info */}

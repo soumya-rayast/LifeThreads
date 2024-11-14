@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PostCard from '../Components/PostCard';
 import { FaSearch } from "react-icons/fa";
 import Pagination from '../Components/Pagination'; // Assuming you have the Pagination component
+import { Helmet } from 'react-helmet';
 
 const Blogs = () => {
     const blogPosts = [
@@ -43,6 +44,9 @@ const Blogs = () => {
 
     return (
         <div className='mt-10 mb-5 mx-10 flex flex-col px-5'>
+            <Helmet>
+                <title>LifeThreads - Blogs</title>
+            </Helmet>
             <div className='flex flex-col items-center gap-4 mb-10'>
                 <div className='relative w-full md:w-1/2'>
                     <input

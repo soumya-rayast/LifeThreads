@@ -6,6 +6,7 @@ import { GiBookshelf, GiMeal, GiMusicSpell, GiTravelDress, GiTrophy } from "reac
 import { MdOutlineSportsCricket } from "react-icons/md";
 import { GiHealthNormal } from "react-icons/gi";
 import { FaBaby, FaLaptop } from 'react-icons/fa';
+import { Helmet } from 'react-helmet';
 const category = () => [
     {
         icon: <MdOutlineTravelExplore />,
@@ -81,6 +82,9 @@ const category = () => [
 const Categories = () => {
     return (
         <div className='flex flex-col justify-center items-center  mt-10 mb-10'>
+            <Helmet>
+                <title>LifeThreads - Categories</title>
+            </Helmet>
             <h1 className="text-3xl font-bold mb-10 text-blue-500">Categories</h1>
             <div className='flex flex-wrap gap-4 mb-10 px-20'>
                 {category().map((data, index) => (

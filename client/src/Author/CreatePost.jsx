@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet';
 
 const CreatePost = () => {
 
@@ -25,6 +26,9 @@ const CreatePost = () => {
 
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10 mb-10">
+      <Helmet>
+        <title>LifeThreads - Create Blog</title>
+      </Helmet>
       <h1 className="text-3xl font-semibold text-blue-500 mb-4">Create New Blog Post</h1>
 
       {/* Post Form */}

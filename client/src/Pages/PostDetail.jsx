@@ -5,6 +5,7 @@ import { FaInstagramSquare } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { FaShareNodes } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 const PostDetail = () => {
   const navigate = useNavigate()
   // State to handle new comment input and the list of comments
@@ -44,12 +45,15 @@ const PostDetail = () => {
 
   return (
     <div className="flex flex-col mb-2 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
+      <Helmet>
+        <title>Blog - Post Details</title>
+      </Helmet>
       <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10">
         {/* Blog Title */}
         <h1 className="text-3xl font-semibold text-blue-500 mb-4">Blog Title</h1>
         {/* Author and Post Date */}
         <div className="flex items-center justify-between text-gray-600 mb-4">
-          <div onClick={()=>navigate("/author")} className='cursor-pointer'>
+          <div onClick={() => navigate("/author")} className='cursor-pointer'>
             <span className="font-semibold text-blue-500">Author:</span> John Doe
           </div>
           <div>

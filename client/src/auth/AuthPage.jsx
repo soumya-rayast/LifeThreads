@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 
 const AuthPage = () => {
   const [isSignIn, setIsSignIn] = useState(true);
@@ -31,6 +32,9 @@ const AuthPage = () => {
 
   return (
     <div className="bg-white flex items-center justify-center min-h-screen">
+      <Helmet>
+        <title>LifeThreads</title>
+      </Helmet>
       <div className="flex items-center justify-center max-w-7xl mx-auto w-[90vw] mt-6 mb-10">
         <form className="w-full md:w-2/3 lg:w-1/2 border border-blue-500 shadow-2xl rounded-md p-8 bg-white">
           <h1 className="font-bold text-2xl mb-6 text-blue-500 text-center">

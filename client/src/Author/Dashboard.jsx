@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from 'chart.js';
+import { Helmet } from 'react-helmet';
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
 
@@ -19,13 +20,13 @@ const Dashboard = () => {
       {
         label: 'Number of Blogs',
         data: [weeklyBlogs, monthlyBlogs, yearlyBlogs],
-        backgroundColor: ['#3b82f6', '#6366f1', '#8b5cf6'], 
+        backgroundColor: ['#3b82f6', '#6366f1', '#8b5cf6'],
         borderColor: ['#2563eb', '#4f46e5', '#7c3aed'],
         borderWidth: 1,
       },
       {
         label: 'Shared Blogs',
-        data: [5, 15, 45], 
+        data: [5, 15, 45],
         backgroundColor: ['#f87171', '#fb923c', '#fbbf24'],
         borderColor: ['#ef4444', '#f97316', '#f59e0b'],
         borderWidth: 1,
@@ -53,9 +54,12 @@ const Dashboard = () => {
 
   return (
     <div className="flex flex-col items-center justify-center bg-gray-100 py-10 px-4">
+      <Helmet>
+        <title>LifeThreads - Dashboard</title>
+      </Helmet>
       <div className="max-w-4xl w-full bg-white rounded-lg shadow-lg p-8">
         <h2 className="text-2xl font-semibold text-blue-500 mb-6">Dashboard</h2>
-        
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
           <div className="bg-blue-100 p-4 rounded-lg shadow">
             <h3 className="text-xl font-semibold text-blue-600">Total Blogs</h3>

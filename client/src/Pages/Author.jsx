@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import PostCard from '../Components/PostCard';
+import { Helmet } from 'react-helmet';
 
 const Author = () => {
   // Example author details
@@ -28,6 +29,10 @@ const Author = () => {
 
   return (
     <div className="container mx-auto p-6 space-y-6">
+      {/* Changing Title Name */}
+      <Helmet>
+        <title>LifeThreads - Author Details</title>
+      </Helmet>
       {/* Author Details Section */}
       <div className="bg-white p-6 rounded-lg shadow-lg space-y-4 flex flex-col sm:flex-row">
         {/* Author Image */}
@@ -38,7 +43,7 @@ const Author = () => {
             className="w-full h-full object-cover rounded-full border-2 border-blue-500"
           />
         </div>
-        
+
         <div className="ml-0 sm:ml-4">
           <h1 className="text-2xl font-bold">{authorDetails.name}</h1>
           <p><span className="font-semibold">Phone:</span> {authorDetails.phoneNumber}</p>
