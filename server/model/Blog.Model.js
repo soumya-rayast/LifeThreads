@@ -6,14 +6,14 @@ const blogSchema = new mongoose.Schema(
             required: true,
         },
         content: {
-            type: string,
+            type: String,
             required: true
         },
         blogImage: {
             type: String,
             required: true
         },
-        tag: [
+        tags: [
             {
                 type: String,
             }

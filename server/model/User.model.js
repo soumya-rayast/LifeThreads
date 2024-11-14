@@ -50,7 +50,7 @@ const userSchema = new mongoose.Schema({
             ref: "Blog",
         },
     ],
-});
+}, { timestamps: true });
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;
