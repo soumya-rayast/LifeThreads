@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
     const [isAvatarOpen, setIsAvatarOpen] = useState(false);
+    const location = useLocation();
 
-    const isLoggedIn =  useState(true)
+    // const isLoggedIn = Boolean(localStorage.getItem('authToken'));
+    const isLoggedIn = useState(true);
 
-    // Close avatar dropdown on outside click
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (!event.target.closest('.navbar') && !event.target.closest('.dropdown-menu')) {
@@ -22,20 +23,22 @@ const Navbar = () => {
     }, [isAvatarOpen]);
 
     return (
-        <div className="navbar flex justify-between items-center px-4 py-2 shadow-md sticky top-0 bg-white z-50">
+        <div className="navbar flex justify-between items-center px-4 py-4 shadow-md sticky top-0 bg-white z-50">
             {/* Logo Section */}
             <Link to="/" className="text-xl font-bold cursor-pointer">
                 Life<span className="text-blue-500">Threads</span>
             </Link>
 
-            {/* Search bar (visible on desktop) */}
-            <div className="hidden md:flex gap-4">
-                <input
-                    type="text"
-                    className="border rounded-full px-2 py-1"
-                    placeholder="Search..."
-                />
-            </div>
+            {/* Show Search Bar only on Home Page */}
+            {location.pathname === '/' && (
+                <div className="hidden md:flex gap-4">
+                    <input
+                        type="text"
+                        className="border rounded-full px-2 py-1"
+                        placeholder="Search..."
+                    />
+                </div>
+            )}
 
             {/* Navigation Links and Avatar */}
             <div className="flex items-center gap-4">
@@ -44,21 +47,25 @@ const Navbar = () => {
                     <Link to="/" className="hover:text-blue-500">Home</Link>
                     <Link to="/blogs" className="hover:text-blue-500">Blog</Link>
                     <Link to="/categories" className="hover:text-blue-500">Categories</Link>
-                    <Link to="/auth" className="hover:text-blue-500">Login</Link>
+                    
+                    {/* Hide Login Link if User is Logged In */}
+                    {!isLoggedIn && (
+                        <Link to="/auth" className="hover:text-blue-500">Login</Link>
+                    )}
                 </div>
 
-                {/* Avatar for Dropdown Menu */}
+                {/* Avatar for Dropdown Menu if logged in */}
                 {isLoggedIn && (
                     <div className="relative">
                         <img
-                            src="https://via.placeholder.com/40" 
+                            src="https://via.placeholder.com/40"
                             alt="User Avatar"
                             className="w-10 h-10 rounded-full cursor-pointer"
                             onClick={() => setIsAvatarOpen(!isAvatarOpen)}
                         />
                         {isAvatarOpen && (
                             <div className="dropdown-menu absolute right-0 mt-2 w-48 bg-white shadow-2xl rounded-md py-2 z-10">
-                                {/* Display Links in Avatar Dropdown on Mobile */}
+                                {/* Display Links in Avatar Dropdown */}
                                 <Link to="/" className="block px-4 py-2 hover:bg-gray-100 md:hidden">Home</Link>
                                 <Link to="/blogs" className="block px-4 py-2 hover:bg-gray-100 md:hidden">Blog</Link>
                                 <Link to="/categories" className="block px-4 py-2 hover:bg-gray-100 md:hidden">Categories</Link>
@@ -68,7 +75,19 @@ const Navbar = () => {
                                 <Link to="/createPost" className="block px-4 py-2 hover:bg-gray-100">Create Blog</Link>
                                 <Link to="/authorblogs" className="block px-4 py-2 hover:bg-gray-100">Your Blogs</Link>
                                 <Link to="/dashboard" className="block px-4 py-2 hover:bg-gray-100">Dashboard</Link>
-                                <Link to="/" onClick={() => localStorage.removeItem('userToken')} className="block px-4 py-2 hover:bg-gray-100">LogOut</Link>
+                                
+                                {/* Logout Action */}
+                                <Link
+                                    to="/"
+                                    onClick={() => {
+                                        localStorage.removeItem('authToken');
+                                        window.location.reload(); 
+                                    }}
+                                    className="block px-4 py-2 hover:bg-gray-100"
+                                >
+                                    LogOut
+                                </Link>
+
                                 {/* Light/Dark Mode Toggle */}
                                 <button
                                     className="w-full text-left px-4 py-2 hover:bg-gray-100 flex justify-start items-center"

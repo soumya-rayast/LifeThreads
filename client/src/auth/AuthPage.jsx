@@ -1,8 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
+import axios from "axios"
+import { backend_Api } from '../constant';
+import { login, signUp } from '../features/authAPI';
+import { useDispatch } from 'react-redux';
+
+
 
 const AuthPage = () => {
+  const dispatch = useDispatch()
   const [isSignIn, setIsSignIn] = useState(true);
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState()
 
   const toggleForm = () => {
     setIsSignIn(!isSignIn);
@@ -10,10 +20,9 @@ const AuthPage = () => {
 
   // Google login integration
   useEffect(() => {
-    // Check if the google library is loaded
     if (window.google) {
       window.google.accounts.id.initialize({
-        client_id: 'YOUR_GOOGLE_CLIENT_ID', // Replace with your Google Client ID
+        client_id: 'YOUR_GOOGLE_CLIENT_ID',
         callback: handleGoogleResponse,
       });
       window.google.accounts.id.renderButton(
@@ -30,8 +39,19 @@ const AuthPage = () => {
     console.log('Google JWT:', token);
   };
 
+  // traditional method
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (isSignIn) {
+      dispatch(login(email, password));
+    } else {
+      dispatch(signUp(email, password, name));
+    }
+  };
+
   return (
-    <div className="bg-white flex items-center justify-center min-h-screen">
+    <div className=" flex items-center justify-center min-h-screen">
       <Helmet>
         <title>LifeThreads</title>
       </Helmet>
@@ -49,7 +69,7 @@ const AuthPage = () => {
                 <input
                   type="text"
                   placeholder="Enter your name"
-                  name="fullname"
+                  name="name"
                   className="w-full border border-blue-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
