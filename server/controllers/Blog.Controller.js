@@ -4,26 +4,52 @@ const User = require("../model/User.model.js")
 //function for create blog
 const createBlog = async (req, res) => {
     try {
-        // Extracting authorId,from req.id and blog details from req.body
-        const authorId = req.id;
-        const { title, content, blogImage, tags, category } = req.body;
+        // Extract authorId from authenticated user 
+        const authorId = req.user?._id;
+        if (!authorId) {
+            return res.status(401).json({ message: "Unauthorized access", success: false });
+        }
+
+        // Extracting blog details from req.body
+        const { title, content, tags, category } = req.body;
+        
+        // Validate required fields
+        if (!title || !content) {
+            return res.status(400).json({ message: "Title and content are required", success: false });
+        }
+
+        // Initialize variables for image upload
+        let blogImageUrl = null;
+
+        // If an image file is uploaded, handle the file upload
+        if (req.file) {
+            const file = req.file;
+            const fileUri = getDataUri(file);
+            const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+            blogImageUrl = cloudResponse.secure_url;
+        }
+
+        // Create new blog instance
         const newBlog = new Blog({
             title,
             content,
-            blogImage,
+            blogImage: blogImageUrl,
             tags,
             category,
             author: authorId,
             createdAt: new Date()
-        })
-        // saved the blog to the database
-        const savedBlog = await newBlog.save();
-        res.status(201).json({ message: "Blog Created Successfully", blog: savedBlog });
-    } catch (error) {
-        console.error(error)
-    }
+        });
 
-}
+        // Save the blog to the database
+        const savedBlog = await newBlog.save();
+        return res.status(201).json({ message: "Blog Created Successfully", blog: savedBlog, success: true });
+        
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Internal Server Error", success: false });
+    }
+};
+
 // function for get blogs
 const getBlogs = async (req, res) => {
     try {
