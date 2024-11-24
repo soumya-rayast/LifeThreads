@@ -1,30 +1,86 @@
 const User = require("../model/User.model.js")
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const bcrypt = require("bcryptjs")
 const jwt = require('jsonwebtoken');
+const cloudinary = require('../utils/cloudinary.js');
+const getDataUri = require('../utils/datauri.js');
 
+const googleLogin = async (req, res) => {
+    const { token } = req.body;
+    try {
+        const ticket = await client.verifyIdToken({
+            idToken: token,
+            audience: process.env.GOOGLE_CLIENT_ID,
+        });
+        const payload = ticket.getPayload();
+        const { email, name } = payload;
+
+        // Check if the user already exists
+        let user = await User.findOne({ email });
+        if (!user) {
+            user = await User.create({ name, email });
+        }
+
+        // Generate JWT Token
+        const tokenData = { userId: user._id };
+        const jwtToken = jwt.sign(tokenData, process.env.SECRET_Key, { expiresIn: '2d' });
+
+        return res.status(200).json({ message: 'Google login successful', success: true, token: jwtToken, user });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Google login failed', success: false });
+    }
+};
 
 // for Signup
 const signUp = async (req, res) => {
     try {
-        const { name, email, password } = req.body;
-        if (!name || !email || !password) {
-            return res.status(400).json({ message: "Please fill all the form", success: false })
-        };
-        const Email = await User.findOne({ email });
-        if (Email) {
-            return res.status(400).json({ message: "User already exist with this email", success: false })
+        const { name, email, phoneNumber, password } = req.body;
+
+        if (!name || !email || !phoneNumber || !password) {
+            return res.status(400).json({
+                message: "Please fill all the fields",
+                success: false
+            });
+        }
+
+        const file = req.file;
+        if (!file) {
+            return res.status(400).json({
+                message: "Profile photo is required",
+                success: false
+            });
+        }
+        const fileUri = getDataUri(file);
+        const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: "User already exists with this email", success: false });
         }
         const hashedPassword = await bcrypt.hash(password, 10);
         await User.create({
             name,
             email,
-            password: hashedPassword
-        })
-        return res.status(201).json({ message: 'Account created successfully', success: true })
+            password: hashedPassword,
+            phoneNumber,
+            profile: {
+                profilePhoto: cloudResponse.secure_url,
+            }
+        });
+        return res.status(201).json({
+            message: 'Account created successfully',
+            success: true
+        });
     } catch (error) {
-        console.error(error); return res.status(500).json({ message: 'Internal Server Error', success: false });
+        console.error(error);
+        return res.status(500).json({
+            message: "Something went wrong",
+            success: false
+        });
     }
-}
+};
+
 
 // for login
 const login = async (req, res) => {
@@ -63,7 +119,6 @@ const login = async (req, res) => {
         return res.status(500).json({ message: 'Internal Server Error', success: false });
     }
 }
-
 // for logout
 const logout = async (req, res) => {
     try {
@@ -127,4 +182,4 @@ const updateProfile = async (req, res) => {
         return res.status(500).json({ message: "Internal Server Error", success: false });
     }
 };
-module.exports = { signUp, login, logout, updateProfile }
+module.exports = { signUp, login, logout, updateProfile, googleLogin }

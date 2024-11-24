@@ -13,10 +13,11 @@ const isAuthenticated = async (req, res, next) => {
                 success: false
             })
         }
-        req.id = decode.userId;
+        req.userId = decode.userId;
         next()
     } catch (error) {
-        console.error(error)
+        console.error(error);
+        return res.status(500).json({ message: "Server error", success: false });
     }
 }
 module.exports = { isAuthenticated }

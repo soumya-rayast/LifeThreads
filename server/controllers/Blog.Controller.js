@@ -49,11 +49,10 @@ const createBlog = async (req, res) => {
         return res.status(500).json({ message: "Internal Server Error", success: false });
     }
 };
-
 // function for get blogs
 const getBlogs = async (req, res) => {
     try {
-        const authorId = req.id;
+        const authorId = req.user._id;
         const blog = await Blog.find({ authorId });
         if (!blog || blog.length === 0) {
             return res.status(404).json({ message: "No blogs found", success: false })
@@ -128,12 +127,12 @@ const deleteBlog = async (req, res) => {
         });
         // delete from the database
         await Blog.findByIdAndDelete(id);
-        return res.status(200).json({ success: false, message: error.message })
+        return res.status(200).json({ success: true, message: "Blog deleted successfully" })
     } catch (error) {
         console.error(error);
         return res.status(500).json({ success: false, message: error.message })
     }
-}
+} 
 //function for search blog
 const searchBlog = async (req, res) => {
     const { search } = req.query;
@@ -177,26 +176,31 @@ const addToFavourites = async (req, res) => {
 }
 // function for remove Blog from favourites  
 const removefromfavourites = async (req, res) => {
-    const userId = req.id;
     const { blogId } = req.params;
+    const userId = req.user._id;
     try {
-        const user = await User.findByIdAndUpdate(
-            userId,
-            { new: true }
-        )
+        const user = await User.findById(userId);
         if (!user) {
-            return res.status(404).json({ success: false, message: "user not found" })
+            return res.status(404).json({ success: false, message: "User not found" });
         }
+        const index = user.favourites.indexOf(blogId);
+        if (index === -1) {
+            return res.status(400).json({ success: false, message: "Blog not in favourites" });
+        }
+        user.favourites.splice(index, 1);
+        await user.save();
+        return res.status(200).json({ success: true, message: "Blog removed from favourites" });
     } catch (error) {
-        console.error(error)
-        return res.status(500).json({ success: false, message: error.message })
+        console.error(error);
+        return res.status(500).json({ success: false, message: error.message });
     }
-}
+};
+
 // function for get favourites 
 const getFavourites = async (req, res) => {
     const userId = req.id;
     try {
-        const user = await User.findById(userId).populate('favorites');
+        const user = await User.findById(userId).populate('favourites');
         if (!user) {
             return res.status(404).json({ success: false, message: "User not found" })
         }
@@ -209,7 +213,6 @@ const getFavourites = async (req, res) => {
         return res.status(500).json({ success: false, message: error.message })
     }
 }
-
 module.exports = {
     createBlog,
     getBlogs,

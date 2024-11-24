@@ -7,7 +7,7 @@ const addLike = async (req, res) => {
     try {
         const existingLike = await Like.findOne({ user: userId, blog: blogId });
         if (existingLike) {
-            return res.status(400).json({ success: false, message: "Blog already liked" });
+            return res.status(200).json({ success: true, message: "Already liked this blog" });
         }
         // create new Like
         const newLike = new Like({ user: userId, blog: blogId });
@@ -23,7 +23,7 @@ const removeLike = async (req, res) => {
     const userId = req.id;
     const { blogId } = req.params;
     try {
-        const like = await Like.findByIdAndDelete({ user: userId, blog: blogId });
+        const like = await Like.findOneAndDelete({ user: userId, blog: blogId });
         if (!like) {
             return res.status(404).json({ success: false, message: "Like not found" })
         }
@@ -35,9 +35,12 @@ const removeLike = async (req, res) => {
 }
 // function for getting all likes 
 const getLikesForBlog = async (req, res) => {
-    const { blogId } = req.id;
+    const { blogId } = req.params;
     try {
         const likes = await Like.findByIdAndDelete({ blog: blogId }).populate('user', 'name email');
+        if (!likes.length) {
+            return res.status(404).json({ success: false, message: "No likes found for this blog" });
+        }
         return res.status(200).json({ success: true, data: likes })
     } catch (error) {
         console.error(error);
@@ -49,6 +52,9 @@ const countLikesBlog = async (req, res) => {
     const { blogId } = req.params;
     try {
         const count = await Like.countDocuments({ blog: blogId });
+        if (!blogId) {
+            return res.status(400).json({ success: false, message: "Invalid blog ID" });
+        }
         return res.status(200).json({ success: true, count })
     } catch (error) {
         console.error(error);

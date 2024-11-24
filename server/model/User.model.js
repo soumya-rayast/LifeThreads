@@ -9,21 +9,21 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    password: {
+        type: String,
+        required: true,
+    },
     phoneNumber: {
         type: String,
         required: true,
     },
-    password: {
+    profilePhoto: {
         type: String,
         required: true,
     },
     profile: {
         bio: {
             type: String,
-        },
-        profilePhoto: {
-            type: String,
-            default: '',
         },
         socialLinks: {
             facebook: {
